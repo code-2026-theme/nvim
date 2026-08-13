@@ -1,0 +1,164 @@
+*dark-2026.txt*   Dark Modern 2026 colorscheme for Neovim
+
+==============================================================================
+CONTENTS                                                    *dark-2026-contents*
+
+  1. Introduction .................... |dark-2026-introduction|
+  2. Setup ........................... |dark-2026-setup|
+  3. Options ......................... |dark-2026-options|
+  4. Transparency .................... |dark-2026-transparency|
+  5. Styles .......................... |dark-2026-styles|
+  6. Palette ......................... |dark-2026-palette|
+  7. Highlights ...................... |dark-2026-highlights|
+  8. Plugins ......................... |dark-2026-plugins|
+  9. API ............................. |dark-2026-api|
+
+==============================================================================
+1. INTRODUCTION                                         *dark-2026-introduction*
+
+dark-2026.nvim is a dark colorscheme ported from VS Code's "Dark Modern 2026"
+theme: red keywords, purple functions, teal types on a #121314 background.
+
+Requires Neovim 0.9+ with 'termguicolors'.
+
+==============================================================================
+2. SETUP                                                       *dark-2026-setup*
+
+Calling setup() is optional; the defaults apply without it. >lua
+
+    require('dark-2026').setup({})
+    vim.cmd.colorscheme('dark-2026')
+<
+Calling |dark-2026.setup()| while the colorscheme is active reapplies it.
+
+==============================================================================
+3. OPTIONS                                                   *dark-2026-options*
+
+>lua
+    require('dark-2026').setup({
+      transparent = false,
+      terminal_colors = true,
+      dim_inactive = false,
+      styles = {
+        comments = { italic = true },
+        keywords = {},
+        conditionals = {},
+        functions = {},
+        methods = {},
+        variables = {},
+        builtins = { italic = true },
+        parameters = {},
+        properties = {},
+        types = {},
+        strings = {},
+        numbers = {},
+        booleans = {},
+        constants = {},
+        operators = {},
+        namespaces = {},
+        macros = {},
+        attributes = {},
+        tags = {},
+        headings = { bold = true },
+        floats = 'solid',
+      },
+      palette = {},
+      on_colors = function(colors) end,
+      on_highlights = function(highlights, colors) end,
+      highlights = {},
+      plugins = {},
+    })
+<
+==============================================================================
+4. TRANSPARENCY                                         *dark-2026-transparency*
+
+`transparent = true` clears the background of Normal, the sign column, line
+numbers, the statusline and the tabline.
+
+Floating windows are separate: `styles.floats` is one of >
+    'solid'         always painted (default)
+    'transparent'   never painted
+    'auto'          follows `transparent`
+<
+==============================================================================
+5. STYLES                                                     *dark-2026-styles*
+
+Each `styles.<token>` table is merged into the highlight specs for that token.
+Add an attribute with `true`, remove a theme default with `false`. >lua
+
+    require('dark-2026').setup({
+      styles = {
+        comments = { italic = false },
+        keywords = { italic = true },
+        functions = { bold = true },
+      },
+    })
+<
+Valid attributes: `bold`, `italic`, `underline`, `undercurl`, `strikethrough`.
+
+==============================================================================
+6. PALETTE                                                   *dark-2026-palette*
+
+Static overrides: >lua
+
+    require('dark-2026').setup({ palette = { bg = '#0d0e0f' } })
+<
+Programmatic overrides, applied after `palette`: >lua
+
+    require('dark-2026').setup({
+      on_colors = function(colors)
+        colors.bg_float = colors.bg
+      end,
+    })
+<
+Derived keys visible to `on_colors`: `bg_normal`, `bg_panel`, `bg_float`,
+`bg_inactive`, `err_bg`, `warn_bg`, `info_bg`, `hint_bg` and `terminal`.
+All keys are defined in `lua/dark-2026/palette.lua`.
+
+==============================================================================
+7. HIGHLIGHTS                                             *dark-2026-highlights*
+
+>lua
+    require('dark-2026').setup({
+      on_highlights = function(highlights, colors)
+        highlights.LineNr = { fg = colors.fg_dim }
+      end,
+      highlights = {
+        Comment = { fg = '#6f7680' },
+        Visual = { link = 'CursorLine' },
+      },
+    })
+<
+`on_highlights` runs first, then `highlights` is merged on top. Groups merge
+per key; a spec containing `link` replaces the group entirely.
+
+==============================================================================
+8. PLUGINS                                                   *dark-2026-plugins*
+
+Plugin groups are enabled by default and can be disabled by key: >lua
+
+    require('dark-2026').setup({ plugins = { telescope = false } })
+<
+Keys: gitsigns, telescope, fzf_lua, snacks, blink, cmp, bufferline, which_key,
+notify, noice, neo_tree, nvim_tree, oil, indent_blankline, mini, lazy, mason,
+trouble, flash, illuminate, treesitter_context, rainbow, dap, navic, markdown,
+dashboard, yanky, fidget.
+
+lualine users can set `options.theme = 'dark-2026'`.
+
+==============================================================================
+9. API                                                           *dark-2026-api*
+
+dark-2026.setup({opts})                                   *dark-2026.setup()*
+    Stores {opts}. Reapplies the colorscheme if it is already active.
+
+dark-2026.load({opts})                                     *dark-2026.load()*
+    Applies the colorscheme. {opts} override the stored config for this call.
+
+dark-2026.colors({opts})                                 *dark-2026.colors()*
+    Returns the resolved palette table.
+
+dark-2026.highlights({opts})                         *dark-2026.highlights()*
+    Returns the resolved highlight table and palette without applying them.
+
+vim:tw=78:ts=8:noet:ft=help:norl:
