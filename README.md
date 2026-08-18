@@ -18,6 +18,7 @@ configurable plugin.
 | Ghostty | [dark-2026-theme/ghostty](https://github.com/dark-2026-theme/ghostty) | terminal theme |
 | kitty   | [dark-2026-theme/kitty](https://github.com/dark-2026-theme/kitty)     | terminal theme |
 | Xcode   | [dark-2026-theme/xcode](https://github.com/dark-2026-theme/xcode)     | editor theme   |
+| Obsidian | [dark-2026-theme/obsidian](https://github.com/dark-2026-theme/obsidian) | app theme    |
 
 Every port shares one palette, so `:terminal` inside Neovim renders identically to the host
 terminal. See [Matching your terminal](#matching-your-terminal) for the values.
