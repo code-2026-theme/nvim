@@ -2,6 +2,10 @@
   <img src="assets/logo.svg" alt="dark-2026" width="96" />
 </p>
 
+<p align="center">
+  <img src="assets/nvim.png" alt="dark-2026" />
+</p>
+
 # dark-2026.nvim
 
 A dark Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme — red keywords,
