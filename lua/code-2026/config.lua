@@ -9,8 +9,11 @@ local M = {}
 
 ---@class Dark2026Config
 M.defaults = {
-  --- Background variant: `'dark'` or `'light'`.
-  ---@type "'dark'"|"'light'"
+  --- Background variant.
+  --- - `'dark'` / `'light'`: fixed variant.
+  --- - `'auto'`: detect OS color mode once at `setup()` and stay fixed.
+  --- - `'sync'`: detect OS color mode at `setup()` and re-apply whenever it changes.
+  ---@type "'dark'"|"'light'"|"'auto'"|"'sync'"
   background = 'dark',
   --- Transparent editor background (`Normal`, gutters, statusline, tabline).
   transparent = false,
@@ -90,8 +93,9 @@ function M.extend(opts)
 
   local config = vim.tbl_deep_extend('force', vim.deepcopy(M.defaults), opts)
 
-  if config.background ~= 'dark' and config.background ~= 'light' then
-    warn(('background must be "dark" or "light", got %q'):format(tostring(config.background)))
+  local valid_bg = { dark = true, light = true, auto = true, sync = true }
+  if not valid_bg[config.background] then
+    warn(('background must be "dark", "light", "auto" or "sync", got %q'):format(tostring(config.background)))
     config.background = 'dark'
   end
 
