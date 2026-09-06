@@ -1,4 +1,4 @@
-local style = require('dark-2026.util').style
+local style = require('code-2026.util').style
 
 local M = {}
 

@@ -1,4 +1,4 @@
-local c = require('dark-2026').colors()
+local c = require('code-2026').colors()
 
 local function mode(color)
   return { fg = c.bg, bg = color, gui = 'bold' }

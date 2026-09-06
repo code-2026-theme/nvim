@@ -1,9 +1,9 @@
-local util = require 'dark-2026.util'
+local util = require 'code-2026.util'
 
 local M = {}
 
---- Base palette, ported from the VS Code "Dark Modern 2026" theme.
-M.base = {
+--- Dark palette, ported from the VS Code "Dark Modern 2026" theme.
+M.dark = {
   none = 'NONE',
 
   -- Backgrounds (darkest -> lightest)
@@ -67,14 +67,83 @@ M.base = {
   diff_text = '#3a3a63',
 }
 
+--- Light palette, ported from the VS Code "2026 Light" theme.
+M.light = {
+  none = 'NONE',
+
+  -- Backgrounds (lightest -> darkest)
+  bg = '#FFFFFF', -- editor
+  bg_alt = '#FAFAFD', -- sidebar / status / panel / inactive tabs
+  bg_menu = '#FAFAFD', -- menu / quick input / floats
+  bg_line = '#EAEAEA', -- line highlight, hover
+  bg_widget = '#F0F0F3', -- widget hover
+  bg_select = '#C2DAF5', -- selection (blended from #0069CC40 over white)
+  bg_match = '#B3D7F2', -- dimmed selection (search matches)
+  border = '#F0F1F2',
+  border_alt = '#E4E5E6',
+
+  -- Foregrounds
+  fg = '#202020',
+  fg_alt = '#1F1F1F',
+  fg_dim = '#606060',
+  fg_muted = '#999999',
+  white = '#FFFFFF',
+
+  -- Accent (blue)
+  accent = '#0069CC',
+  accent_dim = '#005FB8',
+  accent_alt = '#0069CC',
+
+  -- Syntax (2026 Light / GitHub Light style -- red keywords, purple functions)
+  comment = '#6e7781',
+  string = '#0a3069',
+  regex = '#116329',
+  number = '#0550ae',
+  keyword = '#cf222e', -- red
+  func = '#8250df', -- purple
+  type = '#116329', -- green
+  variable = '#202020', -- default fg (plain ident)
+  constant = '#0550ae',
+  operator = '#cf222e',
+  preproc = '#cf222e', -- return/import/throw -- red control flow
+  annotation = '#953800', -- orange/brown
+  param = '#1f2328', -- near-black (VS Code light params)
+  member = '#0550ae', -- field/property
+  tag = '#116329',
+  attr = '#0550ae',
+  module = '#116329', -- module/namespace
+  macro = '#953800', -- orange/brown
+
+  -- Diagnostics / status
+  err = '#ad0707',
+  warn = '#667309',
+  info = '#0069CC',
+  hint = '#6e7781',
+  ok = '#587c0c',
+  debug = '#8250df',
+
+  -- Diff
+  diff_add = '#dafbe1',
+  diff_add_fg = '#116329',
+  diff_del = '#ffebe9',
+  diff_del_fg = '#82071e',
+  diff_chg = '#ffd8b5',
+  diff_chg_fg = '#953800',
+  diff_text = '#ddf4ff',
+}
+
+--- Backward-compatible alias.
+M.base = M.dark
+
 --- Resolve the palette for a config: base -> `palette` overrides -> derived
 --- colors -> `on_colors`.
 ---@param opts Dark2026Config
 ---@return table<string, string>
 function M.get(opts)
-  opts = opts or require('dark-2026.config').defaults
+  opts = opts or require('code-2026.config').defaults
 
-  local c = vim.tbl_extend('force', vim.deepcopy(M.base), opts.palette or {})
+  local base = opts.background == 'light' and M.light or M.dark
+  local c = vim.tbl_extend('force', vim.deepcopy(base), opts.palette or {})
 
   local floats = opts.styles.floats
   if floats == 'auto' then
@@ -85,7 +154,13 @@ function M.get(opts)
   c.bg_normal = c.bg_normal or (opts.transparent and c.none or c.bg)
   c.bg_panel = c.bg_panel or (opts.transparent and c.none or c.bg_alt)
   c.bg_float = c.bg_float or (floats == 'transparent' and c.none or c.bg_menu)
-  c.bg_inactive = c.bg_inactive or (opts.transparent and c.none or util.darken(c.bg, 0.35))
+  if opts.transparent then
+    c.bg_inactive = c.bg_inactive or c.none
+  elseif opts.background == 'light' then
+    c.bg_inactive = c.bg_inactive or util.blend(c.bg, c.bg_alt, 0.5)
+  else
+    c.bg_inactive = c.bg_inactive or util.darken(c.bg, 0.35)
+  end
 
   -- Blended diagnostic backgrounds for virtual text.
   c.err_bg = c.err_bg or (opts.transparent and c.none or util.blend(c.err, c.bg, 0.12))

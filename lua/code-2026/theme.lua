@@ -1,4 +1,4 @@
-local util = require 'dark-2026.util'
+local util = require 'code-2026.util'
 
 local M = {}
 
@@ -8,14 +8,14 @@ local core_modules = { 'editor', 'syntax', 'treesitter', 'lsp' }
 ---@param opts Dark2026Config
 ---@return table<string, table> highlights, table<string, string> colors
 function M.build(opts)
-  local colors = require('dark-2026.palette').get(opts)
+  local colors = require('code-2026.palette').get(opts)
   local highlights = {}
 
   for _, name in ipairs(core_modules) do
-    util.merge_highlights(highlights, require('dark-2026.groups.' .. name).get(colors, opts))
+    util.merge_highlights(highlights, require('code-2026.groups.' .. name).get(colors, opts))
   end
 
-  local plugins = require('dark-2026.groups.plugins').get(colors, opts)
+  local plugins = require('code-2026.groups.plugins').get(colors, opts)
   for name, groups in pairs(plugins) do
     if opts.plugins[name] ~= false then
       util.merge_highlights(highlights, groups)

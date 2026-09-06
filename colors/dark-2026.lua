@@ -1,2 +1,2 @@
 -- :colorscheme dark-2026
-require('dark-2026').load()
+require('code-2026').load()

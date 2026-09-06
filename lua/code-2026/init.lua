@@ -1,8 +1,8 @@
-local config = require 'dark-2026.config'
+local config = require 'code-2026.config'
 
 local M = {}
 
-M.name = 'dark-2026'
+M.name = 'code-2026'
 
 ---@type Dark2026Config
 M.options = nil
@@ -11,10 +11,11 @@ M.options = nil
 ---@param opts? Dark2026Config
 function M.setup(opts)
   M.options = config.extend(opts)
-  if vim.g.colors_name == M.name then
+  local current = vim.g.colors_name
+  if current == 'code-2026-dark' or current == 'code-2026-light' then
     M.load()
     -- Let statuslines and other consumers pick the new colors up.
-    vim.api.nvim_exec_autocmds('ColorScheme', { pattern = M.name, modeline = false })
+    vim.api.nvim_exec_autocmds('ColorScheme', { pattern = current, modeline = false })
   end
 end
 
@@ -31,14 +32,14 @@ end
 ---@param opts? Dark2026Config
 ---@return table<string, string>
 function M.colors(opts)
-  return require('dark-2026.palette').get(resolve(opts))
+  return require('code-2026.palette').get(resolve(opts))
 end
 
 --- Build (but do not apply) the highlight table.
 ---@param opts? Dark2026Config
 ---@return table<string, table>, table<string, string>
 function M.highlights(opts)
-  return require('dark-2026.theme').build(resolve(opts))
+  return require('code-2026.theme').build(resolve(opts))
 end
 
 --- Apply the colorscheme.
@@ -54,10 +55,10 @@ function M.load(opts)
   end
 
   vim.o.termguicolors = true
-  vim.o.background = 'dark'
-  vim.g.colors_name = M.name
+  vim.o.background = options.background
+  vim.g.colors_name = 'code-2026-' .. options.background
 
-  local highlights, colors = require('dark-2026.theme').build(options)
+  local highlights, colors = require('code-2026.theme').build(options)
 
   for group, spec in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, spec)

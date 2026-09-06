@@ -9,6 +9,9 @@ local M = {}
 
 ---@class Dark2026Config
 M.defaults = {
+  --- Background variant: `'dark'` or `'light'`.
+  ---@type "'dark'"|"'light'"
+  background = 'dark',
   --- Transparent editor background (`Normal`, gutters, statusline, tabline).
   transparent = false,
   --- Set `vim.g.terminal_color_*` from the palette.
@@ -65,13 +68,13 @@ M.defaults = {
   highlights = {},
 
   --- Disable groups for a plugin with `{ telescope = false }`. Unlisted plugins
-  --- stay enabled. See `lua/dark-2026/groups/plugins.lua` for the keys.
+  --- stay enabled. See `lua/code-2026/groups/plugins.lua` for the keys.
   ---@type table<string, boolean>
   plugins = {},
 }
 
 local function warn(msg)
-  vim.notify('[dark-2026] ' .. msg, vim.log.levels.WARN)
+  vim.notify('[code-2026] ' .. msg, vim.log.levels.WARN)
 end
 
 ---@param opts? Dark2026Config
@@ -86,6 +89,11 @@ function M.extend(opts)
   end
 
   local config = vim.tbl_deep_extend('force', vim.deepcopy(M.defaults), opts)
+
+  if config.background ~= 'dark' and config.background ~= 'light' then
+    warn(('background must be "dark" or "light", got %q'):format(tostring(config.background)))
+    config.background = 'dark'
+  end
 
   local floats = config.styles.floats
   if floats ~= 'auto' and floats ~= 'solid' and floats ~= 'transparent' then

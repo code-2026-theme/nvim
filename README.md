@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="dark-2026" width="96" />
+  <img src="assets/logo.svg" alt="code-2026" width="96" />
 </p>
 
 <p align="center">
-  <img src="assets/nvim.png" alt="dark-2026" />
+  <img src="assets/nvim.png" alt="code-2026" />
 </p>
 
-# dark-2026.nvim
+# code-2026.nvim
 
 A dark Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme — red keywords,
 purple functions, teal types and light-blue strings on a near-black `#121314` canvas.
@@ -14,16 +14,16 @@ purple functions, teal types and light-blue strings on a near-black `#121314` ca
 Based on [D0nw0r/dark2026.nvim](https://github.com/D0nw0r/dark2026.nvim), rebuilt as a
 configurable plugin.
 
-## The dark-2026 family
+## The code-2026 family
 
 | Target  | Repository                                                            |                |
 | ------- | --------------------------------------------------------------------- | -------------- |
-| Neovim  | [dark-2026-theme/nvim](https://github.com/dark-2026-theme/nvim)       | **this repo**  |
-| Ghostty | [dark-2026-theme/ghostty](https://github.com/dark-2026-theme/ghostty) | terminal theme |
-| kitty   | [dark-2026-theme/kitty](https://github.com/dark-2026-theme/kitty)     | terminal theme |
-| Xcode   | [dark-2026-theme/xcode](https://github.com/dark-2026-theme/xcode)     | editor theme   |
-| Obsidian | [dark-2026-theme/obsidian](https://github.com/dark-2026-theme/obsidian) | app theme    |
-| Yazi    | [dark-2026-theme/yazi](https://github.com/dark-2026-theme/yazi)       | file manager |
+| Neovim  | [code-2026-theme/nvim](https://github.com/code-2026-theme/nvim)       | **this repo**  |
+| Ghostty | [code-2026-theme/ghostty](https://github.com/code-2026-theme/ghostty) | terminal theme |
+| kitty   | [code-2026-theme/kitty](https://github.com/code-2026-theme/kitty)     | terminal theme |
+| Xcode   | [code-2026-theme/xcode](https://github.com/code-2026-theme/xcode)     | editor theme   |
+| Obsidian | [code-2026-theme/obsidian](https://github.com/code-2026-theme/obsidian) | app theme    |
+| Yazi    | [code-2026-theme/yazi](https://github.com/code-2026-theme/yazi)       | file manager |
 
 Every port shares one palette, so `:terminal` inside Neovim renders identically to the host
 terminal. See [Matching your terminal](#matching-your-terminal) for the values.
@@ -54,14 +54,14 @@ In `init.lua`:
 
 ```lua
 vim.pack.add {
-  { src = 'https://github.com/dark-2026-theme/nvim', name = 'dark-2026' },
+  { src = 'https://github.com/code-2026-theme/nvim', name = 'code-2026' },
 }
 
-require('dark-2026').setup {}
-vim.cmd.colorscheme 'dark-2026'
+require('code-2026').setup {}
+vim.cmd.colorscheme 'code-2026'
 ```
 
-`name` matters here: the repository is `dark-2026-theme/nvim`, and `vim.pack` names the
+`name` matters here: the repository is `code-2026-theme/nvim`, and `vim.pack` names the
 plugin directory after the repository, so without it the theme would be installed as
 `nvim`.
 
@@ -73,8 +73,8 @@ To follow a branch, tag or commit instead of the default branch:
 ```lua
 vim.pack.add {
   {
-    src = 'https://github.com/dark-2026-theme/nvim',
-    name = 'dark-2026',
+    src = 'https://github.com/code-2026-theme/nvim',
+    name = 'code-2026',
     version = 'main',                     -- branch, tag, or commit hash
     -- version = vim.version.range('1.0'), -- or the greatest matching semver tag
   },
@@ -85,7 +85,7 @@ Then:
 
 - `:lua vim.pack.update()` — fetch updates and open a confirmation buffer; `:write` to
   apply, `:quit` to discard.
-- `:lua vim.pack.del({ 'dark-2026' })` — uninstall, after removing the spec from `init.lua`.
+- `:lua vim.pack.del({ 'code-2026' })` — uninstall, after removing the spec from `init.lua`.
 
 See `:help vim.pack` for the rest.
 
@@ -96,14 +96,14 @@ See `:help vim.pack` for the rest.
 
 ```lua
 {
-  'dark-2026-theme/nvim',
-  name = 'dark-2026',
+  'code-2026-theme/nvim',
+  name = 'code-2026',
   lazy = false,
   priority = 1000,
   opts = {},
   config = function(_, opts)
-    require('dark-2026').setup(opts)
-    vim.cmd.colorscheme 'dark-2026'
+    require('code-2026').setup(opts)
+    vim.cmd.colorscheme 'code-2026'
   end,
 }
 ```
@@ -115,18 +115,18 @@ See `:help vim.pack` for the rest.
 
 ```lua
 use {
-  'dark-2026-theme/nvim',
-  as = 'dark-2026',
+  'code-2026-theme/nvim',
+  as = 'code-2026',
   config = function()
-    require('dark-2026').setup {}
-    vim.cmd.colorscheme 'dark-2026'
+    require('code-2026').setup {}
+    vim.cmd.colorscheme 'code-2026'
   end,
 }
 ```
 
 </details>
 
-`setup()` is optional — `:colorscheme dark-2026` alone gives you the defaults. Call `setup()`
+`setup()` is optional — `:colorscheme code-2026` alone gives you the defaults. Call `setup()`
 only when you want to change something, and always **before** the `colorscheme` command
 (calling it afterwards reapplies the theme, which also works).
 
@@ -135,7 +135,7 @@ only when you want to change something, and always **before** the `colorscheme` 
 The complete set of options, with defaults:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   transparent = false,      -- clear the editor background
   terminal_colors = true,   -- set vim.g.terminal_color_0..15
   dim_inactive = false,     -- darken unfocused windows (NormalNC)
@@ -185,7 +185,7 @@ statusline, tabline, winbar and diagnostic virtual text, letting your terminal b
 through.
 
 ```lua
-require('dark-2026').setup { transparent = true }
+require('code-2026').setup { transparent = true }
 ```
 
 Floating windows are **not** affected — see [`styles.floats`](#stylesfloats).
@@ -202,7 +202,7 @@ Keeping this at `'solid'` with `transparent = true` gives you a see-through edit
 readable popups, which is usually what you want:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   transparent = true,
   styles = { floats = 'solid' },
 }
@@ -229,7 +229,7 @@ table merged into the highlight specs of that token family. Add an attribute wit
 remove one the theme sets with `false`:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   styles = {
     comments = { italic = false },   -- drop the default italic
     keywords = { italic = true },
@@ -272,7 +272,7 @@ Usable attributes: `bold`, `italic`, `underline`, `undercurl`, `underdouble`, `u
 Static color overrides, applied on top of the base palette before anything is derived:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   palette = {
     bg = '#0d0e0f',
     keyword = '#f97583',
@@ -363,9 +363,9 @@ Runs after `palette`, with the whole resolved palette — including the derived 
 it in place:
 
 ```lua
-local util = require 'dark-2026.util'
+local util = require 'code-2026.util'
 
-require('dark-2026').setup {
+require('code-2026').setup {
   on_colors = function(colors)
     colors.comment = util.lighten(colors.comment, 0.15)  -- brighter comments
     colors.bg_float = colors.bg                          -- floats share the editor bg
@@ -383,7 +383,7 @@ Static highlight-group overrides, merged **last** — after the theme and after
 `on_highlights`:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   highlights = {
     Comment = { fg = '#6f7680' },       -- merged: the theme's italic is kept
     CursorLine = { bg = '#1c1d1e' },
@@ -403,7 +403,7 @@ Same thing, programmatically, with the palette in hand. Receives the fully built
 table before `highlights` is merged on top:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   on_highlights = function(hl, colors)
     hl.LineNr = { fg = colors.fg_dim }
     hl.WinSeparator = { fg = colors.accent_dim }
@@ -419,7 +419,7 @@ All plugin integrations are on by default. Disable any of them by key — the th
 leaves those groups untouched, so the plugin's own defaults (or your config) apply:
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   plugins = { bufferline = false, dap = false },
 }
 ```
@@ -444,7 +444,7 @@ require('dark-2026').setup {
 ## lualine
 
 ```lua
-require('lualine').setup { options = { theme = 'dark-2026' } }
+require('lualine').setup { options = { theme = 'code-2026' } }
 ```
 
 The theme reads the resolved palette, so it follows your `palette` / `on_colors` overrides.
@@ -452,7 +452,7 @@ The theme reads the resolved palette, so it follows your `palette` / `on_colors`
 ## API
 
 ```lua
-local dark = require 'dark-2026'
+local dark = require 'code-2026'
 
 dark.setup(opts)        -- store config; reapplies the theme if it is already active
 dark.load(opts)         -- apply the colorscheme; opts override the stored config for this call
@@ -463,7 +463,7 @@ dark.highlights(opts)   -- resolved highlight table + palette, without applying 
 `dark.colors()` is handy for statuslines and other plugins that need to match:
 
 ```lua
-local c = require('dark-2026').colors()
+local c = require('code-2026').colors()
 vim.api.nvim_set_hl(0, 'MyGroup', { fg = c.accent, bg = c.bg_alt })
 ```
 
@@ -484,8 +484,8 @@ The ANSI palette used for `:terminal` and exported via `vim.g.terminal_color_*`:
 
 With `background #121314`, `foreground #bbbebf`, cursor `#bbbebf`, selection `#276782` on
 `#ffffff`. Ready-made theme files:
-[Ghostty](https://github.com/dark-2026-theme/ghostty) ·
-[kitty](https://github.com/dark-2026-theme/kitty).
+[Ghostty](https://github.com/code-2026-theme/ghostty) ·
+[kitty](https://github.com/code-2026-theme/kitty).
 
 <details>
 <summary><b>Ghostty</b></summary>
@@ -556,7 +556,7 @@ color15 #ffffff
 <summary><b>Transparent editor, solid popups, italic keywords</b></summary>
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   transparent = true,
   styles = {
     floats = 'solid',
@@ -572,7 +572,7 @@ require('dark-2026').setup {
 <summary><b>No italics anywhere</b></summary>
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   styles = {
     comments = { italic = false },
     builtins = { italic = false },
@@ -586,7 +586,7 @@ require('dark-2026').setup {
 <summary><b>Darker background, flatter UI</b></summary>
 
 ```lua
-require('dark-2026').setup {
+require('code-2026').setup {
   palette = { bg = '#0b0c0d', bg_alt = '#0b0c0d', bg_menu = '#141516' },
   on_highlights = function(hl, c)
     hl.WinSeparator = { fg = c.bg_line }
@@ -601,10 +601,10 @@ require('dark-2026').setup {
 <summary><b>Reuse the palette in your own config</b></summary>
 
 ```lua
-local c = require('dark-2026').colors()
+local c = require('code-2026').colors()
 
 require('lualine').setup {
-  options = { theme = 'dark-2026' },
+  options = { theme = 'code-2026' },
   sections = { lualine_c = { { 'filename', color = { fg = c.accent_alt } } } },
 }
 ```
@@ -614,15 +614,15 @@ require('lualine').setup {
 ## Structure
 
 ```
-colors/dark-2026.lua              :colorscheme entry point
-lua/dark-2026/init.lua            setup / load / colors / highlights
-lua/dark-2026/config.lua          defaults and validation
-lua/dark-2026/palette.lua         base palette and derived colors
-lua/dark-2026/theme.lua           group assembly and override pipeline
-lua/dark-2026/util.lua            color math and merge helpers
-lua/dark-2026/groups/             editor, syntax, treesitter, lsp, plugins
-lua/lualine/themes/dark-2026.lua  lualine theme
-doc/dark-2026.txt                 :help dark-2026
+colors/code-2026.lua              :colorscheme entry point
+lua/code-2026/init.lua            setup / load / colors / highlights
+lua/code-2026/config.lua          defaults and validation
+lua/code-2026/palette.lua         base palette and derived colors
+lua/code-2026/theme.lua           group assembly and override pipeline
+lua/code-2026/util.lua            color math and merge helpers
+lua/code-2026/groups/             editor, syntax, treesitter, lsp, plugins
+lua/lualine/themes/code-2026.lua  lualine theme
+doc/code-2026.txt                 :help code-2026
 ```
 
 Override precedence, in order: base palette → `palette` → derived colors → `on_colors` →
