@@ -136,6 +136,7 @@ The complete set of options, with defaults:
 
 ```lua
 require('code-2026').setup {
+  background = 'dark',      -- 'dark' | 'light' | 'auto' | 'sync'
   transparent = false,      -- clear the editor background
   terminal_colors = true,   -- set vim.g.terminal_color_0..15
   dim_inactive = false,     -- darken unfocused windows (NormalNC)
@@ -177,6 +178,28 @@ Unknown option names and invalid `styles.floats` values produce a warning and ar
 a typo will never leave you without a colorscheme.
 
 ---
+
+### `background`
+
+Selects the light or dark variant.
+
+| Value   | Effect |
+| ------- | ------ |
+| `'dark'` _(default)_ | Always use the dark palette |
+| `'light'` | Always use the light palette |
+| `'auto'` | Detect the OS color mode once at `setup()` and stay fixed |
+| `'sync'` | Detect at `setup()` and re-apply whenever the OS color mode changes |
+
+`'auto'` and `'sync'` read the OS setting via macOS `defaults read -g AppleInterfaceStyle`
+or GNOME `gsettings`. They fall back to `'dark'` when detection is unavailable.
+
+```lua
+-- Follow the OS appearance, switching in real time:
+require('code-2026').setup { background = 'sync' }
+```
+
+When `background` changes, `vim.o.background` is updated and the `ColorScheme` event
+fires so statuslines and other plugins can pick the new palette.
 
 ### `transparent`
 

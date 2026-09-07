@@ -6,18 +6,20 @@ CONTENTS                                                    *code-2026-contents*
   1. Introduction .................... |code-2026-introduction|
   2. Setup ........................... |code-2026-setup|
   3. Options ......................... |code-2026-options|
-  4. Transparency .................... |code-2026-transparency|
-  5. Styles .......................... |code-2026-styles|
-  6. Palette ......................... |code-2026-palette|
-  7. Highlights ...................... |code-2026-highlights|
-  8. Plugins ......................... |code-2026-plugins|
-  9. API ............................. |code-2026-api|
+  4. Background ...................... |code-2026-background|
+  5. Transparency .................... |code-2026-transparency|
+  6. Styles .......................... |code-2026-styles|
+  7. Palette ......................... |code-2026-palette|
+  8. Highlights ...................... |code-2026-highlights|
+  9. Plugins ......................... |code-2026-plugins|
+ 10. API ............................. |code-2026-api|
 
 ==============================================================================
 1. INTRODUCTION                                         *code-2026-introduction*
 
-code-2026.nvim is a dark colorscheme ported from VS Code's "Dark Modern 2026"
-theme: red keywords, purple functions, teal types on a #121314 background.
+code-2026.nvim is a dark and light colorscheme ported from VS Code's
+"Dark Modern 2026" theme: red keywords, purple functions, teal types.
+Supports dark/light variants with automatic OS color mode detection.
 
 Requires Neovim 0.9+ with 'termguicolors'.
 
@@ -36,6 +38,7 @@ Calling |code-2026.setup()| while the colorscheme is active reapplies it.
 
 >lua
     require('code-2026').setup({
+      background = 'dark',
       transparent = false,
       terminal_colors = true,
       dim_inactive = false,
@@ -70,7 +73,27 @@ Calling |code-2026.setup()| while the colorscheme is active reapplies it.
     })
 <
 ==============================================================================
-4. TRANSPARENCY                                         *code-2026-transparency*
+4. BACKGROUND                                             *code-2026-background*
+
+`background` selects the light or dark variant: >
+    'dark'     always use the dark palette (default)
+    'light'    always use the light palette
+    'auto'     detect OS color mode once at setup() and stay fixed
+    'sync'     detect at setup() and re-apply on OS color mode changes
+<
+`'auto'` and `'sync'` read the OS setting via macOS `defaults read -g
+AppleInterfaceStyle` or GNOME `gsettings get org.gnome.desktop.interface
+color-scheme`. They fall back to `'dark'` when detection is unavailable.
+
+`'sync'` listens for |FocusGained| events and re-applies the theme when the
+OS color mode changes.  `vim.o.background` is updated and the `ColorScheme`
+event fires so statuslines and other plugins can pick the new palette.
+
+Example: >lua
+    require('code-2026').setup({ background = 'sync' })
+<
+==============================================================================
+5. TRANSPARENCY                                         *code-2026-transparency*
 
 `transparent = true` clears the background of Normal, the sign column, line
 numbers, the statusline and the tabline.
@@ -81,7 +104,7 @@ Floating windows are separate: `styles.floats` is one of >
     'auto'          follows `transparent`
 <
 ==============================================================================
-5. STYLES                                                     *code-2026-styles*
+6. STYLES                                                     *code-2026-styles*
 
 Each `styles.<token>` table is merged into the highlight specs for that token.
 Add an attribute with `true`, remove a theme default with `false`. >lua
@@ -97,7 +120,7 @@ Add an attribute with `true`, remove a theme default with `false`. >lua
 Valid attributes: `bold`, `italic`, `underline`, `undercurl`, `strikethrough`.
 
 ==============================================================================
-6. PALETTE                                                   *code-2026-palette*
+7. PALETTE                                                   *code-2026-palette*
 
 Static overrides: >lua
 
@@ -116,7 +139,7 @@ Derived keys visible to `on_colors`: `bg_normal`, `bg_panel`, `bg_float`,
 All keys are defined in `lua/code-2026/palette.lua`.
 
 ==============================================================================
-7. HIGHLIGHTS                                             *code-2026-highlights*
+8. HIGHLIGHTS                                             *code-2026-highlights*
 
 >lua
     require('code-2026').setup({
@@ -133,7 +156,7 @@ All keys are defined in `lua/code-2026/palette.lua`.
 per key; a spec containing `link` replaces the group entirely.
 
 ==============================================================================
-8. PLUGINS                                                   *code-2026-plugins*
+9. PLUGINS                                                   *code-2026-plugins*
 
 Plugin groups are enabled by default and can be disabled by key: >lua
 
@@ -147,7 +170,7 @@ dashboard, yanky, fidget.
 lualine users can set `options.theme = 'code-2026'`.
 
 ==============================================================================
-9. API                                                           *code-2026-api*
+10. API                                                           *code-2026-api*
 
 code-2026.setup({opts})                                   *code-2026.setup()*
     Stores {opts}. Reapplies the colorscheme if it is already active.
