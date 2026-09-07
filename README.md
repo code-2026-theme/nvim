@@ -8,8 +8,8 @@
 
 # code-2026.nvim
 
-A dark Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme — red keywords,
-purple functions, teal types and light-blue strings on a near-black `#121314` canvas.
+A dark and light Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme — red keywords,
+purple functions, teal types and light-blue strings.
 
 Based on [D0nw0r/dark2026.nvim](https://github.com/D0nw0r/dark2026.nvim), rebuilt as a
 configurable plugin.
@@ -545,6 +545,74 @@ color13 #b267e6
 color6  #4ec9b0
 color14 #71d4c0
 color7  #bbbebf
+color15 #ffffff
+```
+
+</details>
+
+### Light terminal
+
+With `background #FFFFFF`, `foreground #202020`, cursor `#0069CC`, selection `#C2DAF5` on
+`#202020`.
+
+<details>
+<summary><b>Ghostty</b></summary>
+
+```conf
+background = #FFFFFF
+foreground = #202020
+cursor-color = #0069CC
+cursor-text = #FFFFFF
+selection-background = #C2DAF5
+selection-foreground = #202020
+
+palette = 0=#f0f1f2
+palette = 1=#cf222e
+palette = 2=#116329
+palette = 3=#953800
+palette = 4=#0550ae
+palette = 5=#8250df
+palette = 6=#116329
+palette = 7=#202020
+palette = 8=#999999
+palette = 9=#cf222e
+palette = 10=#116329
+palette = 11=#953800
+palette = 12=#0550ae
+palette = 13=#8250df
+palette = 14=#116329
+palette = 15=#ffffff
+```
+
+</details>
+
+<details>
+<summary><b>kitty</b></summary>
+
+```conf
+background            #FFFFFF
+foreground            #202020
+cursor                #0069CC
+cursor_text_color     #FFFFFF
+selection_background  #C2DAF5
+selection_foreground  #202020
+url_color             #0069CC
+
+color0  #f0f1f2
+color8  #999999
+color1  #cf222e
+color9  #cf222e
+color2  #116329
+color10 #116329
+color3  #953800
+color11 #953800
+color4  #0550ae
+color12 #0550ae
+color5  #8250df
+color13 #8250df
+color6  #116329
+color14 #116329
+color7  #202020
 color15 #ffffff
 ```
 
