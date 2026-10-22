@@ -8,8 +8,7 @@
 
 # code-2026.nvim
 
-A dark and light Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme — red keywords,
-purple functions, teal types and light-blue strings.
+A dark and light Neovim colorscheme ported from VS Code's **Dark Modern 2026** theme, featuring red keywords, purple functions, teal types and light-blue strings.
 
 Based on [D0nw0r/dark2026.nvim](https://github.com/D0nw0r/dark2026.nvim), rebuilt as a
 configurable plugin.
@@ -31,10 +30,10 @@ terminal. See [Matching your terminal](#matching-your-terminal) for the values.
 
 ## Features
 
-- **638 highlight groups** — editor UI, legacy syntax, tree-sitter, LSP semantic tokens,
+- **638 highlight groups**: editor UI, legacy syntax, tree-sitter, LSP semantic tokens,
   diagnostics, diffs, and 28 plugins.
 - **Transparency** for the editor, with floating windows controlled separately.
-- **Per-token styling** — bold/italic/underline for 20 semantic token families.
+- **Per-token styling**: bold/italic/underline for 20 semantic token families.
 - **Palette overrides**, static (`palette`) or programmatic (`on_colors`).
 - **Highlight overrides**, static (`highlights`) or programmatic (`on_highlights`).
 - **Per-plugin opt-out** for every plugin integration.
@@ -59,14 +58,14 @@ vim.pack.add {
 }
 
 require('code-2026').setup {}
-vim.cmd.colorscheme 'code-2026'
+vim.cmd.colorscheme 'dark-2026'
 ```
 
 `name` matters here: the repository is `code-2026-theme/nvim`, and `vim.pack` names the
 plugin directory after the repository, so without it the theme would be installed as
 `nvim`.
 
-No `priority` or `lazy` equivalent is needed — `vim.pack.add()` installs (on first run) and
+No `priority` or `lazy` equivalent is needed: `vim.pack.add()` installs (on first run) and
 adds to `'runtimepath'` synchronously, so the plugin is usable on the next line.
 
 To follow a branch, tag or commit instead of the default branch:
@@ -84,9 +83,9 @@ vim.pack.add {
 
 Then:
 
-- `:lua vim.pack.update()` — fetch updates and open a confirmation buffer; `:write` to
+- `:lua vim.pack.update()`: fetch updates and open a confirmation buffer; `:write` to
   apply, `:quit` to discard.
-- `:lua vim.pack.del({ 'code-2026' })` — uninstall, after removing the spec from `init.lua`.
+- `:lua vim.pack.del({ 'code-2026' })`: uninstall, after removing the spec from `init.lua`.
 
 See `:help vim.pack` for the rest.
 
@@ -104,7 +103,7 @@ See `:help vim.pack` for the rest.
   opts = {},
   config = function(_, opts)
     require('code-2026').setup(opts)
-    vim.cmd.colorscheme 'code-2026'
+    vim.cmd.colorscheme 'dark-2026'
   end,
 }
 ```
@@ -120,16 +119,16 @@ use {
   as = 'code-2026',
   config = function()
     require('code-2026').setup {}
-    vim.cmd.colorscheme 'code-2026'
+    vim.cmd.colorscheme 'dark-2026'
   end,
 }
 ```
 
 </details>
 
-`setup()` is optional — `:colorscheme code-2026` alone gives you the defaults. Call `setup()`
-only when you want to change something, and always **before** the `colorscheme` command
-(calling it afterwards reapplies the theme, which also works).
+`setup()` is optional: `:colorscheme dark-2026` alone gives you the defaults. Call `setup()` only when you want to change something, and always **before** the `colorscheme` command (calling it afterwards reapplies the theme, which also works).
+
+Two colorschemes are available: **`dark-2026`** and **`light-2026`**. Use `dark-2026` for the dark variant or `light-2026` for the light variant. Alternatively, set `background = 'auto'` or `background = 'sync'` in `setup()` to detect the OS color mode (see [Configuration](#configuration)).
 
 ## Configuration
 
@@ -175,7 +174,7 @@ require('code-2026').setup {
 }
 ```
 
-Unknown option names and invalid `styles.floats` values produce a warning and are ignored —
+Unknown option names and invalid `styles.floats` values produce a warning and are ignored:
 a typo will never leave you without a colorscheme.
 
 ---
@@ -212,7 +211,7 @@ through.
 require('code-2026').setup { transparent = true }
 ```
 
-Floating windows are **not** affected — see [`styles.floats`](#stylesfloats).
+Floating windows are **not** affected; see [`styles.floats`](#stylesfloats).
 
 ### `styles.floats`
 
@@ -271,24 +270,24 @@ Usable attributes: `bold`, `italic`, `underline`, `undercurl`, `underdouble`, `u
 | Key            | Default             | Applies to (plus every group linked to these)                                                             |
 | -------------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
 | `comments`     | `{ italic = true }` | `Comment`, `SpecialComment`, `@comment*`, `@markup.quote`                                                 |
-| `keywords`     | —                   | `Keyword`, `Statement`, `Label`, `StorageClass`, `PreProc`, `Include`, `Define`, `PreCondit`, `@keyword*` |
-| `conditionals` | —                   | `Conditional`, `Repeat`, `Exception`, `@keyword.return`, `@keyword.conditional`, `@keyword.repeat`        |
-| `functions`    | —                   | `Function`, `@function`, `@function.call`, `@function.builtin`                                            |
-| `methods`      | —                   | `@function.method`, `@function.method.call`, `@lsp.type.method`                                           |
-| `variables`    | —                   | `Identifier`, `@variable`, `@variable.builtin`                                                            |
+| `keywords`     | `{}`                | `Keyword`, `Statement`, `Label`, `StorageClass`, `PreProc`, `Include`, `Define`, `PreCondit`, `@keyword*` |
+| `conditionals` | `{}`                | `Conditional`, `Repeat`, `Exception`, `@keyword.return`, `@keyword.conditional`, `@keyword.repeat`        |
+| `functions`    | `{}`                | `Function`, `@function`, `@function.call`, `@function.builtin`                                            |
+| `methods`      | `{}`                | `@function.method`, `@function.method.call`, `@lsp.type.method`                                           |
+| `variables`    | `{}`                | `Identifier`, `@variable`, `@variable.builtin`                                                            |
 | `builtins`     | `{ italic = true }` | `@variable.builtin`, `@function.builtin`, `@type.builtin`, `@module.builtin`, `@attribute.builtin`        |
-| `parameters`   | —                   | `@variable.parameter`, `@lsp.type.parameter`                                                              |
-| `properties`   | —                   | `@property`, `@field`, `@variable.member`, `@lsp.type.property`                                           |
-| `types`        | —                   | `Type`, `Structure`, `Typedef`, `@type*`, `@constructor`, `@lsp.type.class/enum/interface/struct`         |
-| `strings`      | —                   | `String`, `Character`, `@string*`, `@string.escape`, `@string.regexp`                                     |
-| `numbers`      | —                   | `Number`, `Float`, `@number`, `@number.float`                                                             |
-| `booleans`     | —                   | `Boolean`, `@boolean`                                                                                     |
-| `constants`    | —                   | `Constant`, `@constant*`, `@lsp.type.enumMember`, `@lsp.type.const`, readonly variables                   |
-| `operators`    | —                   | `Operator`, `@operator`, `@lsp.type.operator`                                                             |
-| `namespaces`   | —                   | `@module`, `@namespace`, `@lsp.type.namespace`                                                            |
-| `macros`       | —                   | `Macro`, `@function.macro`, `@constant.macro`, `@lsp.type.macro`                                          |
-| `attributes`   | —                   | `@attribute`, `@tag.attribute`, `@lsp.type.decorator`                                                     |
-| `tags`         | —                   | `Tag`, `@tag`, `@tag.builtin`                                                                             |
+| `parameters`   | `{}`                | `@variable.parameter`, `@lsp.type.parameter`                                                              |
+| `properties`   | `{}`                | `@property`, `@field`, `@variable.member`, `@lsp.type.property`                                           |
+| `types`        | `{}`                | `Type`, `Structure`, `Typedef`, `@type*`, `@constructor`, `@lsp.type.class/enum/interface/struct`         |
+| `strings`      | `{}`                | `String`, `Character`, `@string*`, `@string.escape`, `@string.regexp`                                     |
+| `numbers`      | `{}`                | `Number`, `Float`, `@number`, `@number.float`                                                             |
+| `booleans`     | `{}`                | `Boolean`, `@boolean`                                                                                     |
+| `constants`    | `{}`                | `Constant`, `@constant*`, `@lsp.type.enumMember`, `@lsp.type.const`, readonly variables                   |
+| `operators`    | `{}`                | `Operator`, `@operator`, `@lsp.type.operator`                                                             |
+| `namespaces`   | `{}`                | `@module`, `@namespace`, `@lsp.type.namespace`                                                            |
+| `macros`       | `{}`                | `Macro`, `@function.macro`, `@constant.macro`, `@lsp.type.macro`                                          |
+| `attributes`   | `{}`                | `@attribute`, `@tag.attribute`, `@lsp.type.decorator`                                                     |
+| `tags`         | `{}`                | `Tag`, `@tag`, `@tag.builtin`                                                                             |
 | `headings`     | `{ bold = true }`   | `@markup.heading` and `@markup.heading.1` … `.6`                                                          |
 
 ### `palette`
@@ -367,7 +366,7 @@ require('code-2026').setup {
 | `debug` | `#b267e6` | `diff_chg_fg` | `#79c0ff` |
 |         |           | `diff_text`   | `#3a3a63` |
 
-**Derived** — computed from the above after `palette` is applied, so they follow your
+**Derived**: computed from the above after `palette` is applied, so they follow your
 overrides. Set them explicitly in `palette` to opt out of the derivation.
 
 | Key                                    | Derivation                                         |
@@ -383,7 +382,7 @@ overrides. Set them explicitly in `palette` to opt out of the derivation.
 
 ### `on_colors(colors)`
 
-Runs after `palette`, with the whole resolved palette — including the derived keys. Mutate
+Runs after `palette`, with the whole resolved palette (including the derived keys). Mutate
 it in place:
 
 ```lua
@@ -403,7 +402,7 @@ require('code-2026').setup {
 
 ### `highlights`
 
-Static highlight-group overrides, merged **last** — after the theme and after
+Static highlight-group overrides, merged **last**, after the theme and after
 `on_highlights`:
 
 ```lua
@@ -439,7 +438,7 @@ require('code-2026').setup {
 
 ### `plugins`
 
-All plugin integrations are on by default. Disable any of them by key — the theme then
+All plugin integrations are on by default. Disable any of them by key: the theme then
 leaves those groups untouched, so the plugin's own defaults (or your config) apply:
 
 ```lua
@@ -706,7 +705,8 @@ require('lualine').setup {
 ## Structure
 
 ```
-colors/code-2026.lua              :colorscheme entry point
+colors/dark-2026.lua               :colorscheme entry point (dark)
+colors/light-2026.lua              :colorscheme entry point (light)
 lua/code-2026/init.lua            setup / load / colors / highlights
 lua/code-2026/config.lua          defaults and validation
 lua/code-2026/palette.lua         base palette and derived colors
@@ -722,9 +722,9 @@ highlight groups → `on_highlights` → `highlights`.
 
 ## Credits
 
-- [D0nw0r/dark2026.nvim](https://github.com/D0nw0r/dark2026.nvim) by D0nw0r — the original
+- [D0nw0r/dark2026.nvim](https://github.com/D0nw0r/dark2026.nvim) by D0nw0r: the original
   port this is built on. Licensed MIT; its copyright notice is retained in [LICENSE](LICENSE).
-- Microsoft's VS Code **Dark Modern 2026** theme — the source palette.
+- Microsoft's VS Code **Dark Modern 2026** theme: the source palette.
 
 ## License
 

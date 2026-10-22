@@ -29,8 +29,13 @@ Requires Neovim 0.9+ with 'termguicolors'.
 Calling setup() is optional; the defaults apply without it. >lua
 
     require('code-2026').setup({})
-    vim.cmd.colorscheme('code-2026')
+    vim.cmd.colorscheme('dark-2026')
 <
+Two colorschemes are available: *dark-2026* and *light-2026*. Use dark-2026 for
+the dark variant or light-2026 for the light variant. Alternatively, set
+background = 'auto' or background = 'sync' in setup() to detect the OS color
+mode.
+
 Calling |code-2026.setup()| while the colorscheme is active reapplies it.
 
 ==============================================================================
